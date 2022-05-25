@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import Movie from "../components/Movie";
+import Header from "../components/Header";
+import Loading from "../components/Loading";
+import "../css/home.css";
 
 function Home() {
     const [loading, setLoading] = useState(true);
@@ -18,14 +21,15 @@ function Home() {
     }, []); // 빈 배열일땐 한번만 실행
 
     return (
-        <div>
+        <div className="wrapper">
+            <Header />
             {loading ? (
-                <h1>Loading...</h1>
+                <Loading />
             ) : (
-                <div>{movies.map((movie) => (
-                    <Movie key={movie.id} id={movie.id} coverImg={movie.medium_cover_image} title={movie.title} summary={movie.summary} genres={movie.genres} />
-                ))}
-                </div>
+                <div className="home_movie_wrap">
+                <ul className="home_movie_list">{movies.map((movie) => (
+                    <li key={movie.id} className="home_movie_item"><Movie id={movie.id} coverImg={movie.medium_cover_image} title={movie.title} summary={movie.summary} genres={movie.genres} /></li>
+                ))}</ul></div>
             )}
         </div >
     );
